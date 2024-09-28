@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XKING MINES PREDICTOR</title>
+    <style>
+        @keyframes starAnimation {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://i.ibb.co/qmS8LpR/images-36.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #e0f7fa;
+        }
+        .header-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        @keyframes glowing {
+            0% {
+                box-shadow: 0 0 12px 6px rgba(0, 0, 255, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 24px 12px rgba(0, 0, 255, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 12px 6px rgba(0, 0, 255, 0.4);
+            }
+        }
+        .top-photo {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            background-color: #000;
+            animation: glowing 2s infinite ease-in-out;
+        }
+        .server-status, .id-status {
+            margin-left: 15px;
+            font-size: 24px;
+            color: #00ff00;
+            font-weight: bold;
+        }
+        #idDisplay {
+            color: #ffffff;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            width: 80%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            margin: 40px auto;
+            position: relative;
+        }
+        .bold-text {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #e0f7fa;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+        .grid div {
+            width: 100%;
+            padding-top: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));
+            border: 1px solid #0f4c75;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 255, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            color: #ffeb3b;
+            font-family: 'Arial', sans-serif;
+        }
+        .grid div.star {
+            animation: starAnimation 0.5s ease-in-out forwards;
+        }
+        .grid div.star::before {
+            content: '⭐️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+        }
+        .grid div:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 0, 255, 0.8);
+            cursor: pointer;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8));
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 15px 30px;
+            font-size: 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #fff;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .buttons button#resultButton {
+            background: linear-gradient(135deg, #1e90ff, #007bff);
+        }
+        .buttons button#resultButton:hover {
+            background: linear-gradient(135deg, #007bff, #1e90ff);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .buttons button#resetButton {
+            background: linear-gradient(135deg, #e94560, #ff6f61);
+        }
+        .buttons button#resetButton:hover {
+            background: linear-gradient(135deg, #ff6f61, #e94560);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffeb3b;
+            margin-top: 20px;
+        }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .loading img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <img src="https://i.ibb.co/LSwFZYR/1000587129-removebg-preview.png" alt="Top Photo" class="top-photo">
+        <div class="server-status">Server: Active</div>
+        <div class="id-status">ID: <span id="idDisplay">Loading...</span></div>
+    </div>
+    <div class="container">
+        <div class="bold-text">XKING 👑 MINES HACK</div>
+        <div class="grid">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="buttons">
+            <button id="resultButton">PREDICT⭐</button>
+            <button id="resetButton">RECONNECT</button>
+        </div>
+        <div id="resultDisplay" class="result"></div>
+        <div class="loading" id="loading">
+            <img src="https://i.imgur.com/llF5iyg.gif" alt="Loading"> <!-- Replace with your loading image URL -->
+        </div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Retrieve the ID from session storage
+        const id = sessionStorage.getItem('userID');
+        const idDisplay = document.getElementById('idDisplay');
+        
+        // Check if ID exists and display it
+        if (id) {
+            idDisplay.textContent = id;
+        } else {
+            idDisplay.textContent = 'No ID Found';
+        }
+        const gridContainer = document.querySelector('.grid');
+        const resultButton = document.getElementById('resultButton');
+        const resetButton = document.getElementById('resetButton');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const loading = document.getElementById('loading');
+        const numStars = 5;  // Number of good stars to predict
+        const numBadStars = 3; // Number of bad stars
+
+        resultButton.addEventListener('click', () => {
+            loading.style.display = 'block'; // Show the loading image
+            setTimeout(() => {
+                loading.style.display = 'none'; // Hide the loading image
+                resetGrid();
+                predictStars();
+            }, 2000); // 2 seconds delay
+        });
+
+        resetButton.addEventListener('click', () => {
+            loading.style.display = 'block'; // Show the loading image
+            setTimeout(() => {
+                loading.style.display = 'none'; // Hide the loading image
+                resetGrid();
+                resultDisplay.textContent = 'API SERVER ID RECONNECTED ✅'; // Display message after the loading
+                setTimeout(() => {
+                    resultDisplay.textContent = ''; // Clear the message after 2 seconds
+                }, 2000); // 2 seconds delay
+            }, 4000); // 4 seconds delay
+        });
+
+        function predictStars() {
+            const cells = Array.from(gridContainer.children);
+            const totalCells = cells.length;
+            const starIndices = [];
+            const badStarIndices = [];
+
+            // Ensure that the good stars (5) and bad stars (3) are placed in different cells
+            while (starIndices.length < numStars) {
+                const randomIndex = Math.floor(Math.random() * totalCells);
+                if (!starIndices.includes(randomIndex)) {
+                    starIndices.push(randomIndex);
+                }
+            }
+
+            // Ensure that the bad stars are placed in 3 different cells that don't overlap with good stars
+            while (badStarIndices.length < numBadStars) {
+                const randomIndex = Math.floor(Math.random() * totalCells);
+                if (!starIndices.includes(randomIndex) && !badStarIndices.includes(randomIndex)) {
+                    badStarIndices.push(randomIndex);
+                }
+            }
+
+            // Place good stars in the selected cells
+            starIndices.forEach(index => {
+                const cell = cells[index];
+                cell.classList.add('star');
+            });
+
+            // Display a success message
+            resultDisplay.textContent = `SUCCESS ✅ HACK  5 CELLS MINES PREDICTED!`;
+
+            // Clear the message after 2 seconds
+            setTimeout(() => {
+                resultDisplay.textContent = '';
+            }, 2000);
+        }
+
+        function resetGrid() {
+            // Remove stars and reset the grid
+            const cells = Array.from(gridContainer.children);
+            cells.forEach(cell => {
+                cell.classList.remove('star');
+            });
+        }
+    });
+</script>
+</body>
+</html>
